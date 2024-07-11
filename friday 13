@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: MIT
+// Generated with Spectral Syntax
+
+pragma solidity ^0.8.17;
+
+contract Friday13th {
+    function countFriday13ths(uint year) public pure returns (uint) {
+        uint count = 0;
+        for (uint month = 1; month <= 12; month++) {
+            if (getDayOfWeek(year, month, 13) == 5) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    function getDayOfWeek(uint year, uint month, uint day) private pure returns (uint) {
+        if (month < 3) {
+            month += 12;
+            year--;
+        }
+        uint h = (day + (13 * (month + 1) / 5) + year + year / 4 - year / 100 + year / 400) % 7;
+        return h;
+    }
+}
